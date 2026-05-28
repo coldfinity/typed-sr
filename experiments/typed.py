@@ -73,9 +73,12 @@ def run(
         X, y = problem.generate(n_samples=n_samples, seed=seed)
         var_values = {f"x{i+1}": X[:, i] for i in range(X.shape[1])}
 
-        # TypedCFG has the same interface as CFG but additionally requires
-        # dimensional type annotations per variable.
-        cfg = TypedCFG(n_vars=problem.n_vars, max_depth=5)
+        cfg = TypedCFG(
+            n_vars=problem.n_vars,
+            var_dims=problem.var_dims,
+            target_dim=problem.target_dim,
+            max_depth=5,
+        )
         dsr_config = DSRConfig(batch_size=batch_size, max_len=30)
         dsr = DSR(cfg, n_vars=problem.n_vars, config=dsr_config)
 
