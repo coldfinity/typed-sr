@@ -27,7 +27,7 @@ import torch.nn as nn
 @dataclass
 class REINFORCEConfig:
     lr: float = 1e-3
-    entropy_beta: float = 0.005   # weight on entropy bonus
+    entropy_beta: float = 0.005  # weight on entropy bonus
     baseline_momentum: float = 0.99  # EMA decay for reward baseline
 
 
@@ -48,7 +48,7 @@ class REINFORCETrainer:
         self.policy = policy
         self.cfg = config or REINFORCEConfig()
         self.optimizer = torch.optim.Adam(policy.parameters(), lr=self.cfg.lr)
-        self._baseline: float = 0.0   # running mean reward
+        self._baseline: float = 0.0  # running mean reward
 
     def update(
         self,
@@ -129,7 +129,8 @@ def compute_entropy(log_probs_full: torch.Tensor) -> torch.Tensor:
 # ---------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    import sys, os
+    import os
+    import sys
 
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "grammar"))
     sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "model"))
